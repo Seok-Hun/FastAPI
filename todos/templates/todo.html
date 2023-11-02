@@ -1,0 +1,49 @@
+{# todo 페이지용 todo.html #}
+
+{% extends "home.html" %}
+
+{% block todo_container %}
+<main>
+    <hr>
+    <section>
+        <form method="post">
+            <div>
+                <div>
+                    <input aria-describedby="button-addon2" aria-label="Add a todo" name="item"
+                    placeholder="Purchase Packt's Python workshop course" type="text" value="{{item}}"/>
+                    <button data-mdb-ripple-color="dark" id="button-addon2" type="submit">
+                        Add Todo
+                    </button>
+                </div>
+            </div>
+        </form>
+    </section>
+    {% if todo %}
+    <article>
+        <br/>
+        <h4>Todo ID: {{ todo.id }}</h4>
+        <p>
+            <strong>
+                Item : {{todo.item}}
+            </strong>
+        </p>
+    </article>
+    {% else %}
+    <section >
+        <h2>
+            Todos
+        </h2>
+        <br/>
+        <div>
+            <ul>
+                {% for todo in todos %}
+                <li>
+                    {{loop.index}}. <a href="/todo/{{loop.index}}">{{todo.item}}</a>
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+        {%endif%}
+    </section>
+</main>
+{%endblock%}

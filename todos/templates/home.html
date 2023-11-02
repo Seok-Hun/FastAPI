@@ -1,0 +1,21 @@
+{# 애플리케이션 홈 페이지용 home.html #}
+<!DOCTYPE html>
+<html land="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div>
+                    <center>
+                        <h1>Packt Todo Application</h1>
+                    </center>
+                </div>
+            </nav>
+        </header>
+        <div>
+            {% block todo_container %}{% endblock %}
+        </div>
+    </body>
+</html>
