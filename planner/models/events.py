@@ -1,8 +1,10 @@
 # 이벤트 처리용 모델을 정의
 from pydantic import BaseModel
-from typing import List
+from beanie import Document
+from typing import List,Optional
 
-# 이벤트 모델은 6개의 필드를 가진다.
+# 이벤트 모델은 6개의 필드를 가진다.(내부 데이터 사용)
+'''
 class Event(BaseModel):
     # id : 자동 생성되는 고유 식별자
     id: int
@@ -20,6 +22,47 @@ class Event(BaseModel):
     # Config 서브 클래스 : 문서화할 때 샘플 데이터를 보여주기 위한 용도
     # 이벤트의 샘플 데이터를 정의한다.
     # 우리가 API를 통해 신규 이벤트를 생성할 때 참고할 수 있다.
+    class Config:
+        schema_extra = {
+            "example":{
+                "title":"FastAPI Book Launch",
+                "image":"https://linktomyimage.com/image.png",
+                "description":"We will be discussing the contents of the FastAPI book in this event. Ensure to come with your own copy to win gifts!",
+                "tags":["python","fastapi","book","launch"],
+                "location":"Google Meet"
+            }
+        }
+'''
+
+# 이벤트 모델은 6개의 필드를 가진다.(데이터베이스(mongodb) 사용)
+class Event(Document):
+    title: str
+    image: str
+    description: str
+    tags: List[str]
+    location: str
+
+    class Config:
+        schema_extra = {
+            "example":{
+                "title":"FastAPI Book Launch",
+                "image":"https://linktomyimage.com/image.png",
+                "description":"We will be discussing the contents of the FastAPI book in this event. Ensure to come with your own copy to win gifts!",
+                "tags":["python","fastapi","book","launch"],
+                "location":"Google Meet"
+            }
+        }
+    class Settings:
+        name="events"
+
+# UPDATE 처리를 위한 pydantic 모델
+class Event(BaseModel):
+    title: str
+    image: str
+    description: str
+    tags: List
+    location: str
+    
     class Config:
         schema_extra = {
             "example":{

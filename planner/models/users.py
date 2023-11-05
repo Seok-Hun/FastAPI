@@ -2,8 +2,10 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional, List
 from models.events import Event
+from beanie import Document, Link
 
-# 사용자 모델은 3개의 필드를 가진다.
+# 사용자 모델은 3개의 필드를 가진다.(내부 데이터 활용)
+'''
 class User(BaseModel):
     # 사용자 이메일
     email: EmailStr
@@ -25,6 +27,9 @@ class User(BaseModel):
                 "events": []
             }
         }
+'''
+
+# 사용자 모델은 3개의 필드를 가진다.(데이터베이스(mongodb) 활용)
 
 # 사용자 로그인 모델
 class UserSignIn(BaseModel):
@@ -39,3 +44,4 @@ class UserSignIn(BaseModel):
                 "events": []
             }
         }
+        
